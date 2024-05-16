@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -59,5 +61,8 @@ public class User extends AbstractBaseEntity {
     )
     @Builder.Default
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany( mappedBy = "createdBy", cascade = CascadeType.ALL,  orphanRemoval = true)
+    private Set<Poll> polls;
 
 }
