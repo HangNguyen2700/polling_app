@@ -13,7 +13,8 @@ public final class Constants {
 
     public static final String TOKEN_TYPE = "Bearer";
 
-
+    private Constants() {
+    }
 
     @Getter
     @AllArgsConstructor

@@ -22,5 +22,5 @@ public class Option extends AbstractBaseEntity {
     private Poll existIn;
 
     @OneToMany(mappedBy = "votedIn", cascade = CascadeType.ALL,  orphanRemoval = true)
-    private Set<Vote> vote;
+    private Set<Vote> votes;
 }

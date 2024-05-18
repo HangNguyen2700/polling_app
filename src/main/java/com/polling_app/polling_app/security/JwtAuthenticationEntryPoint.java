@@ -1,7 +1,7 @@
 package com.polling_app.polling_app.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.polling_app.polling_app.dto.ErrorResponse;
+import com.polling_app.polling_app.dto.response.ErrorResponse;
 import com.polling_app.polling_app.exception.AppExceptionHandler;
 import com.polling_app.polling_app.service.MessageSourceService;
 import jakarta.servlet.ServletException;
@@ -9,14 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.bridge.Message;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 
 import java.io.IOException;

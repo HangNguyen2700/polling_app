@@ -62,7 +62,9 @@ public class User extends AbstractBaseEntity {
     @Builder.Default
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany( mappedBy = "createdBy", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Poll> polls;
 
+    @OneToMany(mappedBy = "votedBy", cascade = CascadeType.ALL,  orphanRemoval = true)
+    private Set<Vote> votes;
 }

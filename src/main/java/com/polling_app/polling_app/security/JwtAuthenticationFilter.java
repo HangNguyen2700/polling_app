@@ -36,20 +36,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = jwtTokenProvider.extractJwtFromRequest(request);
 
-        //check if token correct
-//        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token, request)) {
-//            String id = jwtTokenProvider.getUserFromToken(token);
-//            UserDetails userDetails = userService.loadUserById(id);
-//
-//            if(Objects.nonNull(userDetails)) {
-//                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//                authenticationManager.authenticate(auth);
-//            }
-//        }
-//
-//        //done this filter & run to another filter/if last filer->do next step
-//        filterChain.doFilter(request, response);
-//        log.info(request.getRemoteAddr());
+        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token, request)) {
+            String id = jwtTokenProvider.getUserIdFromToken(token);
+            UserDetails userDetails = userService.loadUserById(id);
+
+            if(Objects.nonNull(userDetails)) {
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authenticationManager.authenticate(auth);
+            }
+        }
+
+        //done this filter & run to another filter/if last filer->do next step
+        filterChain.doFilter(request, response);
+        log.info(request.getRemoteAddr());
     }
 
 }

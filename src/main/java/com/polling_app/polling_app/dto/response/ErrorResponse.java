@@ -1,4 +1,4 @@
-package com.polling_app.polling_app.dto;
+package com.polling_app.polling_app.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
