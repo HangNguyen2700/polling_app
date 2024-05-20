@@ -49,14 +49,15 @@ public class AuthService {
 
         try {
             User user = userService.findByUsername(username);
-            username = user.getUsername();
+//            username = user.getUsername(); no need to reassign username?!
         } catch (NotFoundException e) {
-            log.error("User not found with email: {}", username);
+            log.error("User not found with username: {}", username);
             throw new AuthenticationCredentialsNotFoundException(badCredentialsMessage);
         }
 
         UsernamePasswordAuthenticationToken authenticationToken =
             new UsernamePasswordAuthenticationToken(username, password);
+
         try {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             JwtUserDetails jwtUserDetails = jwtTokenProvider.getPrincipal(authentication);
@@ -74,6 +75,7 @@ public class AuthService {
      * @param user   User
      * @param bearer String
      */
+    //TODO: complete logout
     public void logout(User user, final String bearer) {
 
     }
