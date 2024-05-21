@@ -6,6 +6,7 @@ import com.polling_app.polling_app.entity.Poll;
 import com.polling_app.polling_app.service.PollService;
 import com.polling_app.polling_app.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,10 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -82,5 +80,43 @@ public class PollController extends AbstractBaseController {
     )
     public ResponseEntity<List<Poll>> getPollsByKeyword(@RequestParam String keyword, @RequestParam int limit, @RequestParam int offset) {
         return ResponseEntity.ok(pollService.getPollsByKeyword(keyword, limit, offset));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(
+            summary = "Get poll by ID endpoint",
+            security = @SecurityRequirement(name = SECURITY_SCHEME_NAME),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success operation",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Poll.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Full authentication is required to access this resource",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Not Found",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorResponse.class)
+                            )
+                    )
+            }
+    )
+    public ResponseEntity<Poll> getPollById(
+            @Parameter(name = "id", description = "Poll ID", required = true)
+            @PathVariable("id") final String id
+    ) {
+        return ResponseEntity.ok(pollService.findById(id));
     }
 }

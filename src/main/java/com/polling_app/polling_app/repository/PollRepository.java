@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PollRepository extends JpaRepository<Poll, UUID>, JpaSpecificationExecutor<Poll> {
@@ -18,6 +19,6 @@ public interface PollRepository extends JpaRepository<Poll, UUID>, JpaSpecificat
     @Query("select p from Poll p where p.question like concat('%', ?1, '%') order by p.createdAt DESC")
     List<Poll> findByQuestionContainsOrderByCreatedAtDesc(String question, Pageable pageable);
 
-
-
+    @Override
+    Optional<Poll> findById(UUID uuid);
 }

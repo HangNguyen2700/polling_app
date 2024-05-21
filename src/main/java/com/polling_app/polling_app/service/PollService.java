@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.polling_app.polling_app.exception.NotFoundException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +59,12 @@ public class PollService {
             log.warn("[JWT] User not authenticated!");
             throw new BadCredentialsException(messageSourceService.get("bad_credentials"));
         }
+    }
+
+    public Poll findById(String id) {
+        return pollRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new NotFoundException(messageSourceService.get("not_found_with_param",
+                        new String[]{messageSourceService.get("poll")})));
     }
 
 }
