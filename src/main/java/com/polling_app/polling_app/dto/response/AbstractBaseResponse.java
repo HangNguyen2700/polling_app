@@ -1,4 +1,4 @@
-package com.polling_app.polling_app.dto;
+package com.polling_app.polling_app.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,5 +8,6 @@ import lombok.experimental.SuperBuilder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuperBuilder
 public abstract class AbstractBaseResponse {
-    protected AbstractBaseResponse(){}
+    protected AbstractBaseResponse() {
+    }
 }

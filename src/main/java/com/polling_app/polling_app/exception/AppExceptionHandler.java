@@ -1,7 +1,7 @@
 package com.polling_app.polling_app.exception;
 
-import com.polling_app.polling_app.dto.DetailedErrorResponse;
-import com.polling_app.polling_app.dto.ErrorResponse;
+import com.polling_app.polling_app.dto.response.DetailedErrorResponse;
+import com.polling_app.polling_app.dto.response.ErrorResponse;
 import com.polling_app.polling_app.service.MessageSourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

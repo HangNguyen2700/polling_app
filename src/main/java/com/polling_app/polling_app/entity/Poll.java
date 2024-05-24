@@ -16,14 +16,13 @@ import java.util.Set;
 public class Poll extends AbstractBaseEntity {
     private String question;
 
-    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_id", nullable = false)
     private User createdBy;
 
     @Column(nullable = false)
     private LocalDateTime expiredAt;
 
-    @OneToMany( mappedBy = "existIn", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "existIn", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Option> options;
-
 }
