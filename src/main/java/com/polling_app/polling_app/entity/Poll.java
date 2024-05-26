@@ -21,7 +21,7 @@ public class Poll extends AbstractBaseEntity {
     private User createdBy;
 
     @Column(nullable = false)
-    private LocalDateTime expiredAt;
+    private LocalDateTime expiresAt;
 
     @OneToMany(mappedBy = "existIn", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Option> options;

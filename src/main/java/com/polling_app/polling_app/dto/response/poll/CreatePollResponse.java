@@ -1,8 +1,7 @@
-package com.polling_app.polling_app.dto.request.poll;
+package com.polling_app.polling_app.dto.response.poll;
 
 import com.polling_app.polling_app.dto.annotation.MinListSize;
 import com.polling_app.polling_app.entity.Poll;
-import com.polling_app.polling_app.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreatePollRequest {
+public class CreatePollResponse {
     @NotEmpty(message = "...")
     @Schema(
             name = "question",
@@ -27,30 +26,36 @@ public class CreatePollRequest {
 
     @Schema(
             name = "expires at",
-            description = "poll expires at",
+            description = "poll expries at",
             type = "LocalDateTime",
             example = "2022-09-29T22:37:31"
     )
     private LocalDateTime expiresAt;
 
+    @Schema(
+            name = "created at",
+            description = "Date time field of poll creation",
+            type = "LocalDateTime",
+            example = "2022-09-29T22:37:31"
+    )
+    private LocalDateTime createdAt;
+
     @NotEmpty(message = "...")
     @MinListSize(min = 1, message = "...")
     @Schema(
-            name = "option requests",
-            description = "option requests of a poll",
+            name = "option responses",
+            description = "option responses of a poll",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
-    private Set<CreateOptionRequest> options;
+    private Set<CreateOptionResponse> optionResponses;
 
-    public static Poll convert (CreatePollRequest createPollRequest, User currentUser) {
-         Poll poll = Poll.builder()
-                .question(createPollRequest.question)
-                .createdBy(currentUser)
-                .expiresAt(createPollRequest.expiresAt)
+    public static CreatePollResponse convert(Poll poll) {
+        return CreatePollResponse.builder()
+                .question(poll.getQuestion())
+                .expiresAt(poll.getExpiresAt())
+                .createdAt(poll.getCreatedAt())
+                .optionResponses(poll.getOptions().stream().map(CreateOptionResponse::convert).collect(Collectors.toSet()))
                 .build();
-
-         poll.setOptions(createPollRequest.getOptions().stream().map(option -> CreateOptionRequest.convert(option, poll)).collect(Collectors.toSet()));
-
-         return poll;
     }
+
 }

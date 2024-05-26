@@ -21,6 +21,6 @@ public class Option extends AbstractBaseEntity {
     @JoinColumn(name = "exist_in_id", nullable = false)
     private Poll existIn;
 
-    @OneToMany(mappedBy = "votedIn", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "votedIn", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Vote> votes;
 }
